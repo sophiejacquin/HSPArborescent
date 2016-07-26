@@ -1,0 +1,81 @@
+COMPLILATION :
+	modifier le fichier CMakeList.txt
+		-modifier les chemins d'accés à paradiseo 
+	génération du makefile: dans un terminal placez vous dans le répertoire source
+		cmake .
+	compilation
+		make
+Execution :
+	.\cascadeEA *paramètres*
+Paramètres :
+
+--help=0                                 # -h : Prints this message
+--popSize=401                            # -P : Population Size (irace:401)
+# --selection=DetTour(2)                   # -S : Selection: DetTour(T), StochTour(t), Roulette, Ranking(p,e) or Sequential(ordered/unordered)
+# --nbOffspring=100%                       # -O : Nb of offspring (percentage or absolute) (irace 709)
+# --replacement=Comma                      # -R : Replacement: Comma, Plus or EPTour(T), SSGAWorst, SSGADet(T), SSGAStoch(t) (irace : Plus)
+# --weakElitism=0                          # -w : Old best parent replaces new worst offspring *if necessary*
+# --nbHeures=8750                          # -N : nombre d'heures dans la plannification
+# --donnePrix=./donnePrix                  # -A : fichier de données décrivant les prix
+# --donneTurbines=./donneTurbines          # -B : fichier de données décrivant les turbines
+# --donneReservoirs=./donneReservoirs3     # -C : fichier de données décrivant reservoirs
+
+
+# --maxGen=100                             # -G : Maximum number of generations () = none) 
+# --steadyGen=100                          # -s : Number of generations with no improvement
+# --minGen=0                               # -g : Minimum number of generations
+# --maxEval=0                              # -E : Maximum number of evaluations (0 = none)
+# --targetFitness=0                        # -T : Stop when fitness reaches
+# --CtrlC=0                                # -C : Terminate current generation upon Ctrl C
+# --monitor-with-CtrlC=0                   # Monitor current generation upon Ctrl C
+
+
+# --cross1Rate=0.164                       # -y : Relative rate for crossover 1 (irace 0.164 )
+# --cross2Rate=1                           # -x : Relative rate for crossover 2 (politic recombination) (irace 1)
+# --mut1Rate=0.402                         # -1 : Relative rate for mutation 1 (irace 0.402)
+# --lng=180                                # -L : longueur mut 2 (irace 180)
+# --mut2Rate=0.012                         # -2 : Relative rate for mutation 2 (hybrid with dp) (irace 0.012)
+# --pCross=0.718                           # -C : Probability of Crossover (irace 0718)
+# --pMut=0.089                             # -M : Probability of Mutation (irace 0.089)
+
+
+		
+Données :
+
+	les données sont décrites dans trois fichiers séparés:
+		-donnePrix : ce fichier décrits les différents prix de ventes
+			     la premiere ligne indique le nombre de type de prix de vente différents (prix spot ou differents type d'obligation d'achats)
+			     les lignes suivantes donnent pour chaque type de prix le prix pour chaque heure
+
+			
+		-donneTurbines : décrit l'ensemble des propriétés des turbines du systeme
+				-la premiere ligne specifie le nombre de turbines dans le systeme
+				puis pour chaque turbine sont specifié ligne par ligne:
+				- le nombre d'intervalle de définition de la fonction objective par rapport au volume d'eau contenu dans le réservoir en amont
+				-la liste des bornes inférieures de ces intervalles
+				- le nombre d'intervalles de définition de la fonction objective par rapport au débit d'au effectué
+				-la liste des bornes supérieures de ces intervalles
+				-les valeurs des débits maximales possible selon l'intevalle de définition dans lequel de trouve le volume d'eau du réservoir en amont
+				-la fonction objective est décrite dans les lignes qui suivent sous forme d'un tableau (lignes débits, colonnes contenu du réservoir)
+				-la distance au réservoir en amont (en terme de nombre d'heures necessaires pour que l'eau débitée atteigne la turbine)
+				-la production minimale qui doit etre générée pour qu'on autorisse la mise en fonctionnement de la turbine
+				- le prix de vente associé à la turbine (numérotation qui correspond à son ordre de description dans le ficher donnePrix)
+				-le numéro du réservoir en aval
+		-donneReservoir : décrit l'ensemble des propriété des réservoirs du systeme
+				-premiere ligne correspond au nombre de réservoirs
+				puis pour chaque réservoir sont donnés ligne par lignes :
+				-le volume initial
+				-le volume maximal
+				-le nombre  d'interval temporaire différent pour le volume min
+				-les bornes sup de ces intervalles et la valeur de vmin correspondante
+				- la quantité minimale qui est deversée automatiquement chaque heure
+				-la quantité masx qui peut etre déversée sans utiliser une turbine
+				- la distance au reservoir en aval
+				-le numéro du réservoir en aval
+				- le nombre de reservoirs en amont
+				-les numeros des reservoirs en amont
+				-le nombre de turbines fournes par le réservoir
+				- les numéros des turbines
+				-les apports en eau pour chaque heure
+				
+			
