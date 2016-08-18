@@ -32,8 +32,6 @@ public:
 	/// Ctor - no requirement
 // START eventually add or modify the anyVariable argument
   eocascadeInit6(vector< vector<double> > _V, Systeme* _systeme,int _nbHeures)
-  //  eocascadeInit( varType  _anyVariable) : anyVariable(_anyVariable)
-// END eventually add or modify the anyVariable argument
   {
 	int i,j,h;
     // START Code of Ctor of an eocascadeInit object
@@ -69,8 +67,8 @@ public:
    */
   void operator()(GenotypeT & _genotype)
   {
-	//cout<<"deb ini"<<endl;
-	 int i,j;
+	//cout<<"deb ini6"<<endl;
+	int i,j;
 	vector<double> qNul;
 	//creation vecteur nul :
 	for(i=0;i<systeme->getNbReservoirs();i++)
@@ -83,7 +81,7 @@ public:
 		_genotype.adEtat(qNul);
 	}
 	//choix heure:
-	eoUniformGenerator<int> choix(3000,6000);
+	eoUniformGenerator<int> choix(nbHeures/3,2*nbHeures/3);
 
 	int h=choix();
 	//qte :
@@ -119,7 +117,8 @@ public:
 	//ini :
 	init4(_genotype);
 	init5(_genotype);
-    _genotype.invalidate();	   // IMPORTANT in case the _genotype is old
+        _genotype.invalidate();	
+	//cout<<"fin ini6"<<endl;
 	
   }
 

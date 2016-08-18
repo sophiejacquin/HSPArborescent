@@ -148,7 +148,7 @@ public:
 		}
 		fit=fit+_eo.getEval(h);
 	}
-    // END   Code of computation of fitness of the eocascade object
+    
 	//_eo.setLast_fitness(fit);
 	//if(realisable) cout<<"SOLUTION réalisable!!!! :D youpiii"<<endl; 
 	_eo.fitness(fit);

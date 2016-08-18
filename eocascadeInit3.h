@@ -51,31 +51,27 @@ public:
    */
   void operator()(GenotypeT & _genotype)
   {
-	//cout<<"deb ini"<<endl;
+	//cout<<"deb ini 3"<<endl;
 	 eocascadeInit2<eocascade<double> > init2(V, systeme,nbHeures);
 	eocascadeInit6<eocascade<double> > init6(V, systeme,nbHeures);
 	 eocascadeInit<eocascade<double> > init1(V, systeme,nbHeures);
 
 	eoUniformGenerator<double> choix(0,300);
 	double c=choix();
-	/*vector<double> qTot;
-	for(i=0;nbR;i++)
-	{
-		double qmin=(V[c][i]-Vmax)/3600;
-		if(qmin<c*qminC)qmin=c*qminC;
-		qmax=(V[c][i]-Vmin)/3600;
-		if(qmax>Q[i]-(nbHeures-c-1)*qminC) qmax=Q[i]-(nbHeures-c-1)*qminC;
-	}*/
-	if(c>250)init6(_genotype);
+
+	if(c>250){
+		init6(_genotype);
+		
+	}
 	else 
 	{
-	if(c<150) init2(_genotype);
+		if(c<150) init2(_genotype);
 		else 
-		init1(_genotype);
+			init1(_genotype);
 	}
 
-    _genotype.invalidate();	   // IMPORTANT in case the _genotype is old
-	
+        _genotype.invalidate();	   // IMPORTANT in case the _genotype is old
+ 	//cout<<"fin int 3"<<endl;
   }
 
 private:

@@ -38,19 +38,22 @@ RM = /usr/bin/cmake -E remove -f
 # Escaping for special characters.
 EQUALS = =
 
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
+
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jacquin/Desktop/casArborescentFINAL
+CMAKE_SOURCE_DIR = /home/toe/Documents/Recherche/HSP/HSPArborescent
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jacquin/Desktop/casArborescentFINAL
+CMAKE_BINARY_DIR = /home/toe/Documents/Recherche/HSP/HSPArborescent
 
 #=============================================================================
 # Targets provided globally by CMake.
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running interactive CMake command-line interface..."
-	/usr/bin/cmake -i .
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -69,9 +72,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jacquin/Desktop/casArborescentFINAL/CMakeFiles /home/jacquin/Desktop/casArborescentFINAL/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/toe/Documents/Recherche/HSP/HSPArborescent/CMakeFiles /home/toe/Documents/Recherche/HSP/HSPArborescent/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jacquin/Desktop/casArborescentFINAL/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/toe/Documents/Recherche/HSP/HSPArborescent/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -99,31 +102,31 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named cascadeEA24
+# Target rules for targets named cascadeEA
 
 # Build rule for target.
-cascadeEA24: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 cascadeEA24
-.PHONY : cascadeEA24
+cascadeEA: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 cascadeEA
+.PHONY : cascadeEA
 
 # fast build rule for target.
-cascadeEA24/fast:
-	$(MAKE) -f CMakeFiles/cascadeEA24.dir/build.make CMakeFiles/cascadeEA24.dir/build
-.PHONY : cascadeEA24/fast
+cascadeEA/fast:
+	$(MAKE) -f CMakeFiles/cascadeEA.dir/build.make CMakeFiles/cascadeEA.dir/build
+.PHONY : cascadeEA/fast
 
 # target to build an object file
 cascadeEA.o:
-	$(MAKE) -f CMakeFiles/cascadeEA24.dir/build.make CMakeFiles/cascadeEA24.dir/cascadeEA.o
+	$(MAKE) -f CMakeFiles/cascadeEA.dir/build.make CMakeFiles/cascadeEA.dir/cascadeEA.o
 .PHONY : cascadeEA.o
 
 # target to preprocess a source file
 cascadeEA.i:
-	$(MAKE) -f CMakeFiles/cascadeEA24.dir/build.make CMakeFiles/cascadeEA24.dir/cascadeEA.i
+	$(MAKE) -f CMakeFiles/cascadeEA.dir/build.make CMakeFiles/cascadeEA.dir/cascadeEA.i
 .PHONY : cascadeEA.i
 
 # target to generate assembly for a file
 cascadeEA.s:
-	$(MAKE) -f CMakeFiles/cascadeEA24.dir/build.make CMakeFiles/cascadeEA24.dir/cascadeEA.s
+	$(MAKE) -f CMakeFiles/cascadeEA.dir/build.make CMakeFiles/cascadeEA.dir/cascadeEA.s
 .PHONY : cascadeEA.s
 
 # Help Target
@@ -132,7 +135,7 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... cascadeEA24"
+	@echo "... cascadeEA"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... cascadeEA.o"

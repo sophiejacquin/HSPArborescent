@@ -60,7 +60,7 @@ public:
   {
 	int i,h;
 	int nbReservoirs=systeme->getNbReservoirs();
-	cout<<"debut mutation4"<<endl;
+	//cout<<"debut mutation4"<<endl;
       bool isModified(true);//a tester
     // START code for mutation of the _genotype object
 	//Declarations :
@@ -116,7 +116,7 @@ public:
 			_genotype.setEval(i,s->valeur);
 			s=s->pred;
 		}
-	cout<<"fin mutation4"<<endl;
+	//cout<<"fin mutation4"<<endl;
     return isModified;
 
     // END code for mutation of the _genotype object

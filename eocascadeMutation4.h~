@@ -50,7 +50,7 @@ public:
   }
 
   /// The class name. Used to display statistics
-  string className() const { return "eocascadeMutation3"; }
+  string className() const { return "eocascadeMutation4"; }
 
   /**
    * modifies the parent

@@ -276,9 +276,10 @@ public:
 			if(_genotype.getQuantite(h,i)<_genotype.getQuantite(h-1,i))cout<<"pb grave "<<h<<" "<<i<<endl;
 		}
 	}
-	//	cout<<"FIN INI"<<endl;
+		
     // END   Code of random initialization of an eocascade object
     _genotype.invalidate();	   // IMPORTANT in case the _genotype is old
+//cout<<"FIN INI"<<endl;
   }
 
 private:

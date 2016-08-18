@@ -134,7 +134,7 @@ try
 
     eoState state;    // keeps all things allocated
     // a genotype initializer
-	 int  NBHEURES =parser.createParam(8750,"nbHeures", "nombre d'heures dans la plannification",'N', "My application").value();
+	 int  NBHEURES =parser.createParam(8760,"nbHeures", "nombre d'heures dans la plannification",'N', "My application").value();
 	 std::string donnePrix = parser.createParam(std::string("./donnePrix"), "donnePrix", "donne pour prix", 'A', "My application").value();
 	char Input[600];
 	strcpy(Input,donnePrix.c_str());
@@ -285,8 +285,9 @@ cout<<"mutations créées"<<endl;
 
   // initialize the population
   // yes, this is representation indepedent once you have an eoInit
+cout<<"avant"<<endl;
   eoPop<Indi>& pop   = make_pop(parser, state, init);
-//cout<<"ça?"<<endl;
+cout<<"ça?"<<endl;
   // stopping criteria
   eoContinue<Indi> & term = make_continue(parser, state, eval);
 	eoTimeContinue<Indi> tempsStop(40000);
@@ -362,11 +363,8 @@ cout<<"mutations créées"<<endl;
   if (plotcascadeStat)
     {
       myGnuMonitor = new eoGnuplot1DMonitor(dirName+"plot_myStat.xg",minimizing_fitness<Indi>());
-      // NOTE: you cand send commands to gnuplot at any time with the method
-      // myGnuMonitor->gnuplotCommand(string)
-      // par exemple, gnuplotCommand("set logscale y")
+      
 
-      // don't forget to store the memory in the state
       state.storeFunctor(myGnuMonitor);
       // and of course to add the monitor to the checkpoint
       checkpoint.add(*myGnuMonitor);

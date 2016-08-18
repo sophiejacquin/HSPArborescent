@@ -56,7 +56,7 @@ public:
    */
   bool operator()(GenotypeT & _genotype)
   {
-	//cout<<"debut mutation2"<<endl;
+	cout<<"debut mutation3"<<endl;
       bool isModified(true);
     // START code for mutation of the _genotype object
       //déclarations:

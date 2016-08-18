@@ -1,4 +1,4 @@
-# Install script for directory: /home/jacquin/Desktop/casArborescentFINAL
+# Install script for directory: /home/toe/Documents/Recherche/HSP/HSPArborescent
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/home/jacquin/Desktop/casArborescentFINAL/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/home/toe/Documents/Recherche/HSP/HSPArborescent/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/home/jacquin/Desktop/casArborescentFINAL/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/home/toe/Documents/Recherche/HSP/HSPArborescent/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

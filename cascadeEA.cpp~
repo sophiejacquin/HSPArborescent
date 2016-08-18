@@ -134,7 +134,7 @@ try
 
     eoState state;    // keeps all things allocated
     // a genotype initializer
-	 int  NBHEURES =parser.createParam(8750,"nbHeures", "nombre d'heures dans la plannification",'N', "My application").value();
+	 int  NBHEURES =parser.createParam(8760,"nbHeures", "nombre d'heures dans la plannification",'N', "My application").value();
 	 std::string donnePrix = parser.createParam(std::string("./donnePrix"), "donnePrix", "donne pour prix", 'A', "My application").value();
 	char Input[600];
 	strcpy(Input,donnePrix.c_str());
@@ -195,7 +195,7 @@ try
     // IF MORE THAN ONE:
 
     // read its relative rate in the combination
- double cross1Rate = parser.createParam(1.0, "cross1Rate", "Relative rate for crossover 1", 'y', "Variation Operators").value();
+ double cross1Rate = parser.createParam(0.164, "cross1Rate", "Relative rate for crossover 1", 'y', "Variation Operators").value();
 
     // create the combined operator with the first one (rename it cross1 !!!)
  eoPropCombinedQuadOp<Indi> cross(cross1, cross1Rate);
@@ -220,7 +220,7 @@ try
     // IF MORE THAN ONE:
 
     // read its relative rate in the combination
- double mut1Rate = parser.createParam(1.0, "mut1Rate", "Relative rate for mutation 1", '1', "Variation Operators").value();
+ double mut1Rate = parser.createParam(0.402, "mut1Rate", "Relative rate for mutation 1", '1', "Variation Operators").value();
 
     // create the combined operator with the first one (rename it cross1 !!!)
  eoPropCombinedMonOp<Indi> mut(mut1, mut1Rate);
@@ -232,7 +232,7 @@ try
     //
 	double lng = parser.createParam(180, "lng", "longueur mut 2", 'L', "Variation Operators" ).value();
  eocascadeMutation2<Indi> mut2(V,&systeme,lng,100);//(eoParser parser);
-double mut2Rate = parser.createParam(1.0, "mut2Rate", "Relative rate for mutation 2", '2', "Variation Operators").value();
+double mut2Rate = parser.createParam(0.012, "mut2Rate", "Relative rate for mutation 2", '2', "Variation Operators").value();
  mut.add(mut2, mut2Rate);
 vector<double> delta;
 vector<double> pas;
@@ -261,12 +261,12 @@ cout<<"mutations créées"<<endl;
   // so you can fully benefit of the existing evolution engines
 
   // First read the individual level parameters
-    double pCross = parser.createParam(0.6, "pCross", "Probability of Crossover", 'C', "Variation Operators" ).value();
+    double pCross = parser.createParam(0.718, "pCross", "Probability of Crossover", 'C', "Variation Operators" ).value();
     // minimum check
     if ( (pCross < 0) || (pCross > 1) )
       throw runtime_error("Invalid pCross");
 
-    double pMut = parser.createParam(0.1, "pMut", "Probability of Mutation", 'M', "Variation Operators" ).value();
+    double pMut = parser.createParam(0.089, "pMut", "Probability of Mutation", 'M', "Variation Operators" ).value();
     // minimum check
     if ( (pMut < 0) || (pMut > 1) )
       throw runtime_error("Invalid pMut");

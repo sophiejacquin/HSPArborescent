@@ -29,10 +29,7 @@ public:
 	/// Ctor - no requirement
 // START eventually add or modify the anyVariable argument
   eocascadeInit2(vector< vector<double> > _V, Systeme* _systeme,int _nbHeures)
-  //  eocascadeInit( varType  _anyVariable) : anyVariable(_anyVariable)
-// END eventually add or modify the anyVariable argument
   {
-    // START Code of Ctor of an eocascadeInit object
 	  V=_V;
 	int i,j,h;
 	//cout<<"ici"<<endl;
@@ -70,8 +67,8 @@ public:
    */
   void operator()(GenotypeT & _genotype)
   {
-	//cout<<"debut ini"<<endl;
-    // START Code of random initialization of an eocascade object
+	  //cout<<"debut ini2"<<endl;
+    
 	  int i,j,h,t;
 
 	  _genotype.setNbReservoirs(nbReservoirs);
@@ -222,14 +219,15 @@ public:
 		}
 	}
 	//tests croissance:
-	for(h=1;h<nbHeures;h++)
+	/*for(h=1;h<nbHeures;h++)
 	{
 		for(j=0;j<nbReservoirs;j++)
 		{
-			if(_genotype.getQuantite(h-1,j)>_genotype.getQuantite(h,j)) cout<<"erreur "<<h<<" "<<j<<endl;
+			if(_genotype.getQuantite(h-1,j)>_genotype.getQuantite(h,j)) 					cout<<"erreur "<<h<<" "<<j<<endl;
 		}
-	}
-    _genotype.invalidate();	   // IMPORTANT in case the _genotype is old
+	}*/
+        _genotype.invalidate();	   // IMPORTANT in case the _genotype is old
+	//cout<<"fin init2"<<endl;
   }
 
 private:
