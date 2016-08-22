@@ -37,6 +37,7 @@ public:
 
   bool operator()(GenotypeT& _genotype1, GenotypeT & _genotype2)
   {
+//cout<<"debcross"<<endl;
 	int i,j,h;
 	Reservoir* R=systeme->getReservoir(1);
       bool oneAtLeastIsModified(true);
@@ -462,7 +463,7 @@ public:
 					}
 				}
 	}
-	
+//cout<<"fin cross"<<endl;
     return oneAtLeastIsModified;
 
   }

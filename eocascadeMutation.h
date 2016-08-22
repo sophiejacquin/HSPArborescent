@@ -21,7 +21,7 @@ public:
 
   bool operator()(GenotypeT & _genotype)
   {
-
+//cout<<"deb mut"<<endl;
       bool isModified(true);
       int i,j;
       int nbHeures=_genotype.getNbEtats();
@@ -88,8 +88,9 @@ public:
 	   _genotype.setModif(etat+1,true);
     	
       }
+//cout<<"fin mut"<<endl;
       return isModified;
-    // END code for mutation of the _genotype object
+  
   }
 
 private:

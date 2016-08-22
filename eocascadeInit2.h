@@ -38,6 +38,7 @@ public:
   {
 
 	int i,j,h,t;
+	_genotype.setNbReservoirs(nbReservoirs);
 	vector<double> quantite;
 	_genotype.adEtat(qTot);
 	//Autres états :
