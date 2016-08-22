@@ -1,13 +1,3 @@
-/** -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
-
-The above line is useful in Emacs-like editors
- */
-
-/*
-Template for simple mutation operators
-======================================
-*/
-
 #ifndef eocascadeMutation3_H
 #define eocascadeMutation3_H
 #include <ilcplex/cplex.h>
@@ -20,46 +10,27 @@ Template for simple mutation operators
 typedef IloArray<IloNumVarArray> IloNumVarArray2;
 typedef IloArray<IloNumVarArray2> IloNumVarArray3;
 typedef IloArray<IloNumVarArray3> IloNumVarArray4;
-/**
- *  Always write a comment in this format before class definition
- *  if you want the class to be documented by Doxygen
- *
- * THere is NO ASSUMPTION on the class GenoypeT.
- * In particular, it does not need to derive from EO
- */
 template<class GenotypeT>
 class eocascadeMutation3: public eoMonOp<GenotypeT>
 {
 public:
-  /**
-   * Ctor - no requirement
-   */
-// START eventually add or modify the anyVariable argument
+
   eocascadeMutation3(vector< vector<double> > _V, Systeme* _systeme,int _nbR,int _nbH)
-  //  eocascadeMutation( varType  _anyVariable) : anyVariable(_anyVariable)
-// END eventually add or modify the anyVariable argument
+
   {
-    // START Code of Ctor of an eocascadeEvalFunc object
 	  V=_V;
 	  systeme=_systeme;
 	  nbH=_nbH;
 	  nbR=_nbR;
-    // END   Code of Ctor of an eocascadeEvalFunc object
   }
 
-  /// The class name. Used to display statistics
+ 
   string className() const { return "eocascadeMutation3"; }
 
-  /**
-   * modifies the parent
-   * @param _genotype The parent genotype (will be modified)
-   */
   bool operator()(GenotypeT & _genotype)
   {
 	cout<<"debut mutation3"<<endl;
       bool isModified(true);
-    // START code for mutation of the _genotype object
-      //déclarations:
       int i,j,k,l,m,t,h,s;
       IloEnv env;
       IloModel model(env);
@@ -82,13 +53,11 @@ public:
     	  {
 
     		  reservoirs[i]=cont;
-    		 // nbT=nbT+systeme->getReservoir(i)->getNbTurbines();
     		  cont++;
     		  if(systeme->getReservoir(i)->getNbTurbines()>0)
     		  {
-    			  int turbine=systeme->getReservoir(i)->getTurbine(0);
-    			  turbines.push_back(turbine);
-			//cout<<"turbines de T "<<turbine<<endl;
+    			int turbine=systeme->getReservoir(i)->getTurbine(0);
+    			turbines.push_back(turbine);
 			nbT++;
     		  }
     	  }
@@ -119,7 +88,6 @@ public:
     			  {
     				  int turbine=systeme->getReservoir(dev)->getTurbine(0);
     				  turbines.push_back(turbine);
-				  //cout<<"turbine B "<<turbine<<endl;
     				  nbB++;
     			  }
     			  nbS++;
@@ -127,10 +95,7 @@ public:
 
     	  }
       }
-//	cout<<"def nbPieces et nbInt"<<endl;
-      //definition nbPieces :
-            //definition nbIntervalles:
-	 IloInt sum=nbT+nbB;
+      IloInt sum=nbT+nbB;
             IloIntArray nbIntervals(env,sum);
             IloIntArray nbPieces(env,sum);
             for(i=0;i<sum;i++)

@@ -1,27 +1,11 @@
-/** -*- mode: c++; c-indent-level: 4; c++-member-init-indent: 8; comment-column: 35; -*-
 
-The above line is usefulin Emacs-like editors
- */
-
-/*
-Template for simple quadratic crossover operators
-=================================================
-
-Quadratic crossover operators modify the both genotypes
-*/
 
 #ifndef eocascadeQuadCrossover2_H
 #define eocascadeQuadCrossover2_H
 
 #include <eoOp.h>
 
-/**
- *  Always write a comment in this format before class definition
- *  if you want the class to be documented by Doxygen
- *
- * THere is NO ASSUMPTION on the class GenoypeT.
- * In particular, it does not need to derive from EO
- */
+
 template<class GenotypeT>
 class eocascadeQuadCrossover2: public eoQuadOp<GenotypeT>
 {
