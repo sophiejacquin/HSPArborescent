@@ -20,17 +20,18 @@ class Systeme
 	Systeme(char* titre1,char* titre2,char*titre3 )
 	{	
 		//Déclarations
-		int i,j,k;
+		int i,j,k,nbH;
 		//Ouverture fichier
 		ifstream fichier(titre1, ios::in);
 		if(fichier){
 		//création des prix
 		
 			fichier>>nbPrix;//spot OAcroissants
+			fichier>>nbH;
 			for(i=0;i<nbPrix;i++)
 			{
-				prix[i]=new double[8760];
-				for(j=0;j<8760;j++)
+				prix[i]=new double[nbH];
+				for(j=0;j<nbH;j++)
 				{
 					fichier>>prix[i][j];
 				}	
@@ -106,6 +107,7 @@ class Systeme
 		if(fichier3)
 		{
 			fichier3>>nbReservoirs;
+			fichier3>>nbH;
 			//Vinit Vmax Vmin
 			for(i=0;i<nbReservoirs;i++)
 			{
@@ -145,8 +147,8 @@ class Systeme
 					listeT[j]=listeT[j]-1;
 				}
 				
-				double* apports=new double[8760];
-				for(j=0;j<8760;j++)
+				double* apports=new double[nbH];
+				for(j=0;j<nbH;j++)
 				{
 					fichier3>> apports[j];
 					//apports[j]=apports[j]*3600;
