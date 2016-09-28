@@ -3,8 +3,6 @@
 
 
 #include <eoOp.h>
-
-
 template<class GenotypeT>
 class eocascadeMutation: public eoMonOp<GenotypeT>
 {
@@ -48,6 +46,13 @@ public:
     	  }
 	  if(ex<0.99 &&qminC>0&&(Vi-Vmin)/3600>=qmin+qminC)qmin=qmin+qminC;//chercher à ne pas faire à tout les coups?
     	  if((Vi-Vmax)/3600>qmin)qmin=(Vi-Vmax)/3600;
+	  int Rdeversement=R->getDeversement();
+	  if(Rdeversement>0)
+	  {
+	  	double Vsuc= V[etat][Rdeversement] -_genotype.getQuantite(etat,Rdeversement)*3600;
+	  	if(qmin<systeme->getReservoir(Rdeversement)->getVmin(etat)-Vsuc)
+			qmin=systeme->getReservoir(Rdeversement)->getVmin(etat)-Vsuc;
+	}	
     	  //calcul de qmax :
     	  qmax=_genotype.getQuantite(etat+1,i);
     	  double qmaxC=R->getQmax();
@@ -75,7 +80,12 @@ public:
     	  }
     	  if((Vi-Vmin)/3600<qmax) qmax=(Vi-Vmin)/3600;
 	  if(ex<0.8&&qmax>_genotype.getQuantite(etat+1,i)-qminC&&_genotype.getQuantite(etat+1,i)-qminC>=qmin)qmax=_genotype.getQuantite(etat+1,i)-qminC;//chercher à ne pas faire à tout les coups?
-	
+	if(Rdeversement>0)
+	  {
+	  	double Vsuc= V[etat][Rdeversement] -_genotype.getQuantite(etat,Rdeversement)*3600;
+	 	if(qmax>systeme->getReservoir(Rdeversement)->getVmax()-Vsuc)
+			qmax=systeme->getReservoir(Rdeversement)->getVmax()-Vsuc;
+	}
     	  if(qmin>qmax){
 			
 			qmin=qmax;

@@ -77,6 +77,9 @@ try
 	char InputR[600];
 	strcpy(InputR,donneR.c_str());
         Systeme systeme(Input,InputTurb,InputR);
+        std::string sortie = parser.createParam(std::string("exit.csv"), "sortie", "sortie résultats", 'x', "My application").value();
+        char sortieChar[600];
+        strcpy(sortieChar, sortie.c_str());
 	cout <<"systeme créé"<<endl;
         vector< vector<double> > V;
         for(i=0;i<NBHEURES;i++)
@@ -208,21 +211,27 @@ double mut4Rate = parser.createParam(1.0, "mut4Rate", "Relative rate for mutatio
   //// GO
 	cout<<"eval pop ini"<<endl;
 	apply<Indi>(eval, pop);
+
 	cout<<"pop ini evaluée"<<endl;
 
 	cout<<pop.best_element().fitness()<<endl;
 
-
   	run_ea(ga, pop); // run the ga
 
-  	cout << "Final Population\n";
-  	pop.best_element().printOn(cout);
-  
-	
+
   	cout << endl;
 	cout << "Meilleur:" <<-1*(double)pop.best_element().fitness();
 	cout << endl;
-
+        pop.sort();
+        plainEval.details(pop[0]);
+        cout << "Final Population\n";
+        std::ofstream fichierSortie (sortieChar, ios::out | ios::trunc);
+        if(fichierSortie)
+        {
+            pop.best_element().printOn(fichierSortie);
+        }
+        else
+            pop.best_element().printOn(cout);
   }
   catch(exception& e)
   {

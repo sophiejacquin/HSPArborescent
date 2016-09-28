@@ -79,24 +79,62 @@ virtual ~eocascade()
 virtual string className() const { return "eocascade"; }
 void printOn(ostream& os) const
 {
-	EO<FitT>::printOn(os);
-	os << ' ';
-	for(int i=0;i<nbEtats;i++)
+	
+	os << "time ;";
+	for (int i=0;i<nbReservoirs;i++)
 	{
-		
+		os<<"V_"<<i<<";";
+	}
+	for (int i=0;i<nbReservoirs;i++)
+	{
+		os<<"r_"<<i<<";";
+	}
+	for(int i=0; i<q[0].size(); i++)
+	{
+		os<<"T_"<<i<<";";
+	}
+	os<<endl;
+	for(int i=0;i<nbEtats+1;i++)
+	{
+		os<<i<<";";
 		for(int j=0;j<nbReservoirs;j++)
 		{
-			if(i>0)os<<quantite[i][j]-quantite[i-1][j]<<"  "; 
-			else os<<quantite[i][j]<<"  ";
+			
+			os<<V[i][j]<<";";
+
+		}
+		for(int j=0;j<nbReservoirs;j++)
+		{
+			
+			if (i<nbEtats) os<<reserve[i][j]<<";";
+
+		}
+		for(int j=0;j<q[i].size();j++)
+		{
+			
+			if (i<nbEtats) os<<q[i][j]<<";";
+
 		}
 		os<<endl;
 	}
+	EO<FitT>::printOn(os);
 }
 void readFrom(istream& is)
 {
 	EO<FitT>::readFrom(is);
 }
-
+void setV(vector < vector<double> > V_)
+{
+	V=V_;
+}
+void setQ(vector< vector <double> > q_)
+{
+	q=q_;
+}
+void setReserve(vector< vector <double> > reserve_)
+{
+	reserve=reserve_;
+}
 private:			  
 	vector< vector < double > > quantite;
     	vector<double> eval;
@@ -104,6 +142,10 @@ private:
 	double last_fitness;
     	int nbEtats;
     	int nbReservoirs;
+	vector < vector<double> > V;
+	vector< vector <double> > q;
+	vector< vector <double> > reserve;
 };
+
 
 #endif

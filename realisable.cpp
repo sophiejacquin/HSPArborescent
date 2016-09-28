@@ -8,7 +8,7 @@ main()
 	double quantite[nbH][nbReservoirs];
 	int h,i,j;
 	vector< vector<double> > V;
-       for(i=0;i<NBHEURES;i++)
+       for(i=0;i<nbH;i++)
        {
    	vector<double> vec;
        	for(j=0;j<systeme.getNbReservoirs();j++)
@@ -29,10 +29,11 @@ main()
 			double qminC=systeme.getReservoir(i)->getQmin();
 			double qmaxC=systeme.getReservoir(i)->getQmax();
 			double qte;
+			qte =quantite[h][i];
+			//else qte= quantite[h][i]-quantite[h-1][i];
 			if(qte<qminC) cout<< "solution non réalisable car qmin non respecté en "<<i<<" à l'h "<<h<<" diff: "<<qte-qminC<<endl;
 			else{
-				if(h==0) qte =quantite[h][i];
-				else qte= quantite[h][i]-quantite[h-1][i];
+
 				//Calcul de Vi
 				double Vi;
 				if(h==0)Vi=systeme.getReservoir(i)->getVinit();
@@ -49,16 +50,17 @@ main()
 				{
 					int turbine=systeme.getReservoir(i)->getTurbine(0);
 				//calcul qminT et qmaxT:
-					int Int=systeme->getTurbine(turbine)->getIntervalle(Vi);
-					double qminT=systeme->getTurbine(turbine)->getQmin(Vi);
+					int Int=systeme.getTurbine(turbine)->getIntervalle(Vi);
+					double qminT=systeme.getTurbine(turbine)->getQmin(Vi);
 					if(qminT<0) qminT=0;
-					double qmaxT=systeme->getTurbine(turbine)->getQMax(Int);
+					double qmaxT=systeme.getTurbine(turbine)->getQMax(Int);
 				//calcul de qteT:
 				 	qteT=qte-qminC;
 					if(qteT<qminT)qteT=0;
 					if(qteT>qmaxT &&qmaxT>0)qteT=qmaxT;
+					//if(qte-qteT>qmaxC) cout<< "solution non réalisable car qmax non respecté en "<<i<<" à l'h "<<h<<" diff: "<<qte-qteT -qmaxC<<" qmaxT "<<qmaxT<<" qminT "<<qminT<<" qteT "<<qteT<<" qminC "<<qminC<<" qmaxC "<<qmaxC<<endl;
 				}
-				if(qte-qteT>qmaxC) cout<< "solution non réalisable car qmax non respecté en "<<i<<" à l'h "<<h<<" diff: "<<qte-qteT -qmaxC<<endl;
+				if(qmaxC>=0 &&qte-qteT>qmaxC) cout<< "solution non réalisable car qmax non respecté en "<<i<<" à l'h "<<h<<" diff: "<<qte-qteT -qmaxC<<endl;
 				
 			}
 			
