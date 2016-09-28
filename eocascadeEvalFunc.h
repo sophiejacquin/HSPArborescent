@@ -118,9 +118,9 @@ void details(EOT & _eo)
 				}
 				for(i=0;i<_eo.getNbReservoirs();i++)
 				{
-					if(reserve[h][i]<systeme->getReservoir(i)->getQmin()-0.01)
+					if(systeme->getReservoir(i)->getQmin()>0 && reserve[h][i]<systeme->getReservoir(i)->getQmin()-0.01)
 						cout<<"quantite min reserve non respectee pour le reservoir "<<i<<" à l'heure "<<h<<" ecart "<<reserve[h][i]-systeme->getReservoir(i)->getQmin()<<endl;
-					if(reserve[h][i]>systeme->getReservoir(i)->getQmax()+0.01)
+					if(systeme->getReservoir(i)->getQmax()>0 && reserve[h][i]>systeme->getReservoir(i)->getQmax()+0.01)
 						cout<<"quantite max reserve non respectee pour le reservoir "<<i<<" à l'heure "<<h<<" ecart "<<reserve[h][i]-systeme->getReservoir(i)->getQmax()<<endl;
 				}
 			}
