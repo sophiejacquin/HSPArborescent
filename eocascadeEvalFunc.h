@@ -116,13 +116,14 @@ void details(EOT & _eo)
 					}
 					q.push_back(qh);
 				}
+				if(h<_eo.getNbEtats()){
 				for(i=0;i<_eo.getNbReservoirs();i++)
 				{
-					if(systeme->getReservoir(i)->getQmin()>0 && reserve[h][i]<systeme->getReservoir(i)->getQmin()-0.01)
-						cout<<"quantite min reserve non respectee pour le reservoir "<<i<<" à l'heure "<<h<<" ecart "<<reserve[h][i]-systeme->getReservoir(i)->getQmin()<<endl;
-					if(systeme->getReservoir(i)->getQmax()>0 && reserve[h][i]>systeme->getReservoir(i)->getQmax()+0.01)
-						cout<<"quantite max reserve non respectee pour le reservoir "<<i<<" à l'heure "<<h<<" ecart "<<reserve[h][i]-systeme->getReservoir(i)->getQmax()<<endl;
-				}
+					if(systeme->getReservoir(i)->getQmin()>0 && reserve[h][i]<systeme->getReservoir(i)->getQmin()*3600-0.01)
+						cout<<"quantite min reserve non respectee pour le reservoir "<<i<<" à l'heure "<<h<<" ecart "<<reserve[h][i]-systeme->getReservoir(i)->getQmin()*3600<<" reserve :"<<reserve[h][i]<<" qmin "<<systeme->getReservoir(i)->getQmin()*3600<<endl;
+					if(systeme->getReservoir(i)->getQmax()>0 && reserve[h][i]>systeme->getReservoir(i)->getQmax()*3600+0.01)
+						cout<<"quantite max reserve non respectee pour le reservoir "<<i<<" à l'heure "<<h<<" ecart "<<reserve[h][i]-systeme->getReservoir(i)->getQmax()<<" reserve :"<<reserve[h][i]<<" qmax "<<systeme->getReservoir(i)->getQmax()*3600<<endl;
+				}}
 			}
 			
 			
