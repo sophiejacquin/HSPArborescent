@@ -100,7 +100,7 @@ public:
             IloIntArray nbPieces(env,sum);
             for(i=0;i<sum;i++)
             {
-		//cout<<"turbine "<<turbines[i]<<endl;
+		
             	IloInt inter=systeme->getTurbine(turbines[i])->getNbInt();
             	nbIntervals[i]=inter;
             }
@@ -112,7 +112,7 @@ public:
             	nbPieces[i]=piece;
 
             }
-	//cout<<"debut déclarations"<<endl;
+	
 	IloInt nbRe=nbR;
   	IloNumVarArray4 x(env,nbT);
       	IloNumVarArray4 d(env,nbT);
@@ -161,36 +161,33 @@ public:
                 	tot[i]=IloNumVarArray(env,nbHeures,0,IloInfinity);
 
         }
-	//cout<<"tot ini"<<endl;
     	//pour b
     	   for(i=nbT;i<sum;i++)
     	   {
-				//cout<<sum<<endl;
-			//	cout<<turbines[i]<<endl;
-			 //  cout<<nbIntervals[i]<<endl;
+			
 			
     		   	   b[i-nbT]=IloNumVarArray2(env,nbIntervals[i]);
-			//cout<<"là"<<endl;
+			
     		   	   for(j=0;j<nbIntervals[i];j++)
     		   	   {
     		   		   b[i-nbT][j]=IloNumVarArray(env,nbHeures,0,1,ILOBOOL);
 
     		   	   }
-			//cout<<"ici"<<endl;
+			
     	   }
-	//	cout<<"bini"<<endl;
+
     	   //pour R1 :
     	   for(i=0;i<nbR;i++)
     	   {
     		   R1[i]=IloNumVarArray(env,nbHeures,0,1,ILOBOOL);
     	   }
-	//cout<<"R1 ini"<<endl;
+	
     	   //pour R2 :
     	      	   for(i=0;i<nbR;i++)
     	      	   {
     	      		   R2[i]=IloNumVarArray(env,nbHeures,0,1,ILOBOOL);
     	      	   }
-	//cout<<"fin des déclarations"<<endl;
+	
     	   //fonction objective :
     	   IloExpr objective(env);
     	   for(h=0;h<nbH;h++)
@@ -201,7 +198,7 @@ public:
     			   objective+= -10000*R1[s][h];
 			  objective+= -10000*R2[s][h];
     		   }
-		//	cout<<"fonction obj Part one"<<endl;
+		
     		   for(i=0;i<nbT;i++)
     		   {
     			   IloNum prixSpot= systeme->getTurbine(turbines[i])->getPrix(h+hDeb) ;
@@ -215,7 +212,7 @@ public:
     				   }
     			   }
     		   }
-		//cout<<"fonction obj Part two"<<endl;
+		
     		   for(i=nbT;i<nbT+nbB;i++)
     		   {
     			   IloNum prixSpot= systeme->getTurbine(turbines[i])->getPrix(h+hDeb) ;
@@ -259,7 +256,7 @@ public:
 
     	   }
     	   model.add(IloMaximize(env,objective));
-	//cout<<"fonction objective créée"<<endl;
+	
     	   //LES CONTRAINTES :
     	   	//Contraintes 1: débits maximaux :
     	   	for(i=0;i<nbT;i++)

@@ -27,7 +27,6 @@ public:
    */
   bool operator()(GenotypeT & _genotype)
   {
-cout<<"demut2"<<endl;
       bool isModified(true);
       vector< vector<Sommet> > graphe;
       int i,j,h,hi,hf,r,rSuc;
@@ -127,7 +126,7 @@ cout<<"demut2"<<endl;
 		s.quantite=qte;
 		s.pred=-1;
 		s.valeur=-100000;
-		if(qte>qTot) cout<<"wtf?"<<endl;
+		//if(qte>qTot) cout<<"wtf?"<<endl;
 		//recherche pred :
 		if(h==hi)
 		{
@@ -399,7 +398,7 @@ cout<<"demut2"<<endl;
 		        j++;
     	     	}
 		if(s.pred>-1)vec.push_back(s);
-		else cout<<"pb de merde, was passiert?m2 "<<h<<" "<<hi<<" "<<hf<<" "<<_genotype.getQuantite(h,r)<<" "<<_genotype.getQuantite(h-1,r)<<" "<<graphe[h-hi-1][graphe[h-hi-1].size()-1].quantite<<endl;
+		//else cout<<"pb de merde, was passiert?m2 "<<h<<" "<<hi<<" "<<hf<<" "<<_genotype.getQuantite(h,r)<<" "<<_genotype.getQuantite(h-1,r)<<" "<<graphe[h-hi-1][graphe[h-hi-1].size()-1].quantite<<endl;
 	}
 	//recherche pred avec possibilité de sol non realisable si vec vide:
 	graphe.push_back(vec);
@@ -489,7 +488,6 @@ cout<<"demut2"<<endl;
 	}
         s=graphe[h-hi][s.pred];
  }
-cout<<"finmut2"<<endl;
  return isModified;
     
 }

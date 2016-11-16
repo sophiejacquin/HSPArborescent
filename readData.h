@@ -56,7 +56,7 @@ class readData{
 	}	
 	void initPrix()
     	{
-        	cout << "init prix" << endl;
+        	
         	vector<string> namePrix;
         	vector<int> nbParam;
         	for (std::vector<std::string>::iterator it = data.begin(); it != data.end(); it = it + 2)
@@ -83,11 +83,11 @@ class readData{
             		}
             		sys.adPrix(prix);
         	}
-		cout<<"prix initialisé"<<endl;
+		
     	}
 	void initReservoirs()
     	{
-         cout << " init res " << endl;
+         
         	for (std::vector<std::string>::iterator it = data.begin(); it != data.end(); it = it + 14)
         	{
 			//cout<<"deb boucle"<<endl;
@@ -104,7 +104,7 @@ class readData{
             		double* Vmin = (double*) malloc(nbIntVmin * sizeof(double));
             		string intVmin_s = *(it+4);
             		string Vmin_s = *(it+5);
-			///cout<<"av int "<<nbIntVmin<<endl;
+			
             		if (nbIntVmin>1)
            	 	{
                 		std::size_t pos_intVmin_prec = 0;
@@ -124,7 +124,7 @@ class readData{
                 		intVmin[0] = atoi(intVmin_s.c_str());
                 		Vmin[0] = atof(Vmin_s.c_str());
             		}
-			//cout<<"ici"<<endl;
+		;
             		double qmin=atof((*(it+6)).c_str());
 			double qmax=atof((*(it+7)).c_str());
 			int distance= atof((*(it+8)).c_str());
@@ -133,7 +133,7 @@ class readData{
 			int nbTurb=atof((*(it+12)).c_str());
 			string pred_s=*(it+11);
 			string turb_s=*(it+13);
-			cout<<"SUCCESSEUR "<<successeur<<endl;
+			
 			int* pred=(int*) malloc(nbPred * sizeof(int));
 			int* turb=(int*) malloc(nbTurb * sizeof(int));
             		if (nbPred>1)
@@ -172,7 +172,7 @@ class readData{
             
         	}
 
-        	//cout<<" Reste à mettre les apports"<<endl;
+        	
         	ostringstream oss;
        	 	oss << apportTest;
         	string filename = directory+"Apport/apports_serie"+oss.str()+".csv";
@@ -202,10 +202,10 @@ class readData{
 
 	void initTurbines()
     	{
-		cout<<"init turbines"<<endl;
+		
         	for (std::vector<std::string>::iterator it = data.begin(); it != data.end(); it = it + 7)
         	{
-			cout<<*it<<endl;
+			
             		double prodMin = atof((*(it+2)).c_str());
             		int distance = atoi((*(it+1)).c_str());
             		int resParent = atoi((*(it+6)).c_str())-1;
@@ -225,7 +225,7 @@ class readData{
 	
         for (int t=0; t<nbTurbines; t++)
         {
-		cout<<"turbine "<<t<<endl;
+		
             ostringstream oss;
             oss << t+1;
             string filename = directory+"Turbine/Turb"+oss.str()+".csv";
@@ -243,7 +243,7 @@ class readData{
             std::vector<std::string>::iterator it = data.begin();
             for (int i=0; i<nbPieces; i++)
                 production[i] = (double*) malloc(nbInt*sizeof(double));
-	cout<<"read l246"<<endl;
+	
             for (int j=0; j<nbInt; j++)
             {
                 if (nbInt>1)
@@ -299,11 +299,11 @@ class readData{
                     if(t==0 && i==16 && j==15)cout<<production[i][j]<<"   "<<production[i-1][j]<<" coeff="<<coeff[i-1][j]<<" pieces[i]="<<pieces[i-1]<<" pieces[i-1="<<pieces[i-2]<<" qmax="<<qmax[j]<<endl;
                 }
             }
-	  cout<<"read l301"<<endl;
+	  
             T->setProd(nbInt, nbPieces-1, intReservoirs, pieces, qmax, coeff);
            
         }
-        cout << "fin init turbines" << endl;
+        
     }
 
 	bool readDataFile(string fileName) 

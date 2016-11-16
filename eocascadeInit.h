@@ -33,7 +33,7 @@ public:
 
 	void operator()(GenotypeT & _genotype)
 	{
-		cout<<"deb init"<<endl;
+		
 		int i,j,h,t;
 		_genotype.setNbReservoirs(nbReservoirs);
 	  	vector<double> quantite;
@@ -218,7 +218,7 @@ public:
 		_genotype.invalidate();
 			
 		_genotype.check_Vmax(V,systeme);  
-		cout<<"fin init"<<endl;
+		
 	}
 
 private:
