@@ -63,6 +63,22 @@ public:
 		numero=compteur;
 		compteur++;
 	}
+	Turbine(int _nbInt,int _nbPieces,double _prodMin, int _distance,double* _prix,int reservoirP)
+	{
+		int i,j;
+		reservoirParent=reservoirP;
+		nbInt=_nbInt;
+		nbPieces=_nbPieces;
+		prodMin=_prodMin;
+		
+		distance=_distance;
+		for(i=0;i<8760;i++)
+		{
+			prix[i]=_prix[i];
+		}
+		numero=compteur;
+		compteur++;
+	}
 	//Acsesseurs
 	/*int getNbIntervalles()const
 	{
@@ -106,11 +122,14 @@ public:
 		if(i==0) return 0;
 		else return pieces[i-1];
 	}
+	
 	int getIntervalle(double V)
 	{
 		int Int=0;
+		//cout<<"intervalles: "<<nbInt<<" "<<intReservoirs[0]<<endl;
 		for(int i=1;i<nbInt;i++)
 		{
+			//cout<<intReservoirs[i]<<endl;
 			if(V>=intReservoirs[i])Int=i;
 		}
 		return Int;
@@ -123,14 +142,12 @@ public:
 		for(i=0;i<nbInt;i++)
 		{
 			if(V>=intReservoirs[i])Int=i;
-		}	
-		
+		}
 		int pi=0;
 		for(i=0;i<nbPieces-1;i++)
 		{
 			if(q>=pieces[i]) pi=i+1;
 		}
-		
 		double prod=0;
 		for(i=0;i<pi;i++)
 		{
@@ -139,7 +156,6 @@ public:
 		}
 		if(pi>0)prod=prod+ production[pi][Int]*(q-pieces[pi-1]);
 		else prod=prod+ production[pi][Int]*q;
-		//cout<<prod<<endl;
 		return prod*prix[t];
 	}
 	double getBeneficeInt(int Int,double q,int t)const//ca a l'air mal fait
@@ -232,6 +248,134 @@ public:
 	double getQMax(int t)
 	{
 		return qmax[t];
+	}
+	void setProd(int _nbInt, int _nbPieces, double* _intReservoirs, double* _piece, double* _qmax, double** _production)
+	{
+		nbInt = _nbInt;
+		nbPieces = _nbPieces;
+		intReservoirs = new double [nbInt];
+		pieces = new double [nbPieces];
+		for(int i=0;i<nbPieces;i++)
+		{
+			pieces[i]=_piece[i];
+		}
+		for(int i=0; i<nbInt;i++)
+		{
+			intReservoirs[i] = _intReservoirs[i];
+		}
+		
+		qmax =_qmax;
+		production=new double*[nbPieces];
+		for(int i=0;i<nbPieces;i++)
+		{
+			
+			production[i]=new double[nbInt];
+			for(int j=0;j<nbInt;j++)
+			{
+				production[i][j]=_production[i][j];
+				
+			}
+		}
+        //}
+		//cout<<" dans setProd prod[0]="<<production[0][0]<<endl;
+	}
+	bool operator ==(Turbine* t)
+	{
+		if(not(distance==t->getDistance()))
+		{
+			cout<<"distances différentes : "<<distance<<" vs "<<t->getDistance()<<endl;
+			return false;
+		}
+	//double** production;
+	
+		if(not(prodMin==t->getProdMin()))
+		{
+			cout<<"prodMin différents : "<<prodMin<<" vs "<<t->getProdMin()<<endl;
+			return false;
+		}
+		if(not(nbPieces==t->getNbPieces()))
+		{
+			cout<<"nbPieces différents : "<<nbPieces<<" vs "<<t->getNbPieces()<<endl;
+			return false;
+		}
+		if(not(nbInt==t->getNbInt()))
+		{
+			cout<<"nbInt différents : "<<nbInt<<" vs "<<t->getNbInt()<<endl;
+			return false;
+		}
+		
+		if(not(reservoirParent==t->getReservoirParent()))
+		{
+			cout<<"reservoirParent différents : "<<reservoirParent<<" vs "<<t->getReservoirParent()<<endl;
+			return false;
+		}
+		for(int i=0; i<nbPieces;i++)
+		{
+			if(pieces[i]!=t->getBSupPiece( i))
+			{
+				cout<<"piece "<<i<<" differente: "<<pieces[i]<<" vs "<<t->getBSupPiece( i)<<endl;
+				return false;
+			}
+		}
+		for(int i=0; i<nbInt;i++)
+		{
+			if(intReservoirs[i]-t->getBinfIntReservoir( i)>1 || intReservoirs[i]-t->getBinfIntReservoir( i)<-1)
+			{
+				cout<<"int "<<i<<" different: "<<intReservoirs[i]<<" vs "<<t->getBinfIntReservoir( i)<<" dif="<<intReservoirs[i]-t->getBinfIntReservoir( i)<<endl;
+				return false;
+			}
+		}
+		for(int i=0; i<8760;i++)
+		{
+			if(prix[i]-t->getPrix(i)>1 || prix[i]-t->getPrix(i)<-1)
+			{
+				cout<<"prix different h="<<i<<" :"<<prix[i]<<" vs "<<t->getPrix(i)<<endl;
+				t->ecrirePrix();
+				return false;
+			}
+		}
+		for(int j=0;j<nbInt;j++)
+		{
+			if(qmax[j]-t->getQMax(j)>0.01 || qmax[j]-t->getQMax(j)<-0.01)
+			{
+				cout<<"qmax diffrents j="<<j<<": "<<qmax[j]<<" vs "<<t->getQMax(j)<<endl;
+				return false;
+			}
+				
+		}
+		for(int i=0;i<nbPieces;i++)
+		{
+			
+			
+			for(int j=0;j<nbInt;j++)
+			{
+				if(production[i][j]-t->getProduction(i,j)>0.1 || production[i][j]-t->getProduction(i,j)<-0.1)
+				{
+					cout<<"prod differente i="<<i<<" j="<<j<<" : "<<production[i][j]<<" vs "<<t->getProduction(i,j)<<endl;
+					//return false;
+				} 
+				
+			}
+		}
+		return true;
+		
+	
+	
+	
+	
+   
+	}
+	void ecrirePrix()
+	{
+		ofstream fichier("prix.csv", ios::out | ios::trunc);  // ouverture en écriture avec effacement du fichier ouvert
+ 
+        	if(fichier)
+        	{
+			for(int i=0; i<8760;i++)
+			{
+				fichier<<prix[i]<<";\n";
+			}
+		}
 	}
 };
 int Turbine::compteur=0;

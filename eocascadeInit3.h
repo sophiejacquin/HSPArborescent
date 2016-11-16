@@ -30,6 +30,7 @@ void operator()(GenotypeT & _genotype)
 	eocascadeInit<eocascade<double> > init1(V, systeme,nbHeures);
 	eoUniformGenerator<double> choix(0,300);
 	double c=choix();
+	//init1(_genotype);
 	if(c>250){
 		init6(_genotype);	
 	}

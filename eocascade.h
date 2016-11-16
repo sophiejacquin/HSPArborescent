@@ -1,7 +1,7 @@
 #ifndef _eocascade_h
 #define _eocascade_h
 #include <vector>
-
+#include "Systeme.h"
 template< class FitT>
 class eocascade: public EO<FitT> {
 public:
@@ -92,6 +92,7 @@ void printOn(ostream& os) const
 	for(int i=0; i<q[0].size(); i++)
 	{
 		os<<"T_"<<i<<";";
+		
 	}
 	os<<endl;
 	for(int i=0;i<nbEtats+1;i++)
@@ -134,6 +135,27 @@ void setQ(vector< vector <double> > q_)
 void setReserve(vector< vector <double> > reserve_)
 {
 	reserve=reserve_;
+}
+bool check_Vmax(vector< vector<double> > V,Systeme* systeme)
+{
+	
+	for(int h=0;h<nbEtats;h++)
+	{
+		for(int i=0;i<nbReservoirs;i++){
+			double Vi=V[h][i]-quantite[h][i]*3600;
+			for(int j=0;j<systeme->getReservoir(i)->getNbParents();j++)
+			{
+				Vi=Vi+quantite[h][systeme->getReservoir(i)->getParents()[j]]*3600;
+			}
+			if (Vi>(systeme->getReservoir(i))->getVmax()+0.1)
+			{
+				cout<<"Probleme Vmax h="<<h<<" i="<<i<<" Vi="<<Vi<<" Vmax="<<(systeme->getReservoir(i))->getVmax()<<endl;
+				return false;
+			}
+		}
+			
+	}
+	return true;
 }
 private:			  
 	vector< vector < double > > quantite;

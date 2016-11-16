@@ -126,6 +126,41 @@ clean: CMakeFiles/realisable.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/testRead.dir
+
+# All Build rule for target.
+CMakeFiles/testRead.dir/all:
+	$(MAKE) -f CMakeFiles/testRead.dir/build.make CMakeFiles/testRead.dir/depend
+	$(MAKE) -f CMakeFiles/testRead.dir/build.make CMakeFiles/testRead.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/toe/Documents/Recherche/HSP/HSPArborescent/CMakeFiles  3
+	@echo "Built target testRead"
+.PHONY : CMakeFiles/testRead.dir/all
+
+# Include target in all.
+all: CMakeFiles/testRead.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/testRead.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/toe/Documents/Recherche/HSP/HSPArborescent/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/testRead.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/toe/Documents/Recherche/HSP/HSPArborescent/CMakeFiles 0
+.PHONY : CMakeFiles/testRead.dir/rule
+
+# Convenience name for target.
+testRead: CMakeFiles/testRead.dir/rule
+.PHONY : testRead
+
+# clean rule for target.
+CMakeFiles/testRead.dir/clean:
+	$(MAKE) -f CMakeFiles/testRead.dir/build.make CMakeFiles/testRead.dir/clean
+.PHONY : CMakeFiles/testRead.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/testRead.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Special targets to cleanup operation of make.
 
 # Special rule to run CMake to check the build system integrity.

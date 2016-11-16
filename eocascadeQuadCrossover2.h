@@ -22,7 +22,7 @@ public:
 
   bool operator()(GenotypeT& _genotype1, GenotypeT & _genotype2)
   {
-	//cout<<"debut croisement"<<endl;
+	cout<<"debut croisement 2"<<endl;
 	int i,j,k;
         bool oneAtLeastIsModified(true);
 	int nbHeures=_genotype1.getNbEtats();

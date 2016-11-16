@@ -1,0 +1,7 @@
+turbines;distance;prodMin;nbPieces;nbInt;catPrix;réservoir parent
+Turb1;0;44;16;16;0;1
+Turb2;0;0;22;7;2;5
+Turb3;0;4.4;13;7;0;2
+Turb4;0;0;1;1;0;3
+Turb5;2;0;52;1;0;6
+Turb6;0;0;56;4;1;7

@@ -27,14 +27,13 @@ public:
    */
   bool operator()(GenotypeT & _genotype)
   {
-cout<<"demut2"<<endl;
+//cout<<"demut2"<<endl;
       bool isModified(true);
       vector< vector<Sommet> > graphe;
       int i,j,h,hi,hf,r,rSuc;
       int nbReservoirs=_genotype.getNbReservoirs();
       int nbHeures=_genotype.getNbEtats();
 
-      cout<<"choix du reservoir:"<< nbReservoirs-1<<" "<<systeme->getNbReservoirs()<<endl;
       eoUniformGenerator<int> choixReservoir(1,nbReservoirs-1);
       r=choixReservoir();
       if(r==2)r=5; //revoir si Vmin=Vmax...
@@ -49,9 +48,9 @@ cout<<"demut2"<<endl;
       rSuc=R->getDeversement();
       Reservoir* Rsuc=systeme->getReservoir(rSuc);
       //choix hi hf
-cout<<nbHeures-longueur<<endl;
+
       eoUniformGenerator<int> choixHi(0,nbHeures-longueur);
-	cout<<"là"<<endl;
+
       hi=choixHi();
       //if(r==0) hf=hi+24;
       //if(r==3&&hi+800<nbHeures)hf=hi+800;
@@ -490,7 +489,7 @@ cout<<nbHeures-longueur<<endl;
 	}
         s=graphe[h-hi][s.pred];
  }
-cout<<"finmut2"<<endl;
+//cout<<"finmut2"<<endl;
  return isModified;
     
 }

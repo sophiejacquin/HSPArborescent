@@ -37,7 +37,7 @@ public:
 
   bool operator()(GenotypeT& _genotype1, GenotypeT & _genotype2)
   {
-//cout<<"debcross"<<endl;
+cout<<"debcross"<<endl;
 	int i,j,h;
 	Reservoir* R=systeme->getReservoir(1);
       bool oneAtLeastIsModified(true);
@@ -116,6 +116,7 @@ public:
 				if(qtemin<(Vi-Vmax)/3600)qtemin=(Vi-Vmax)/3600;
 				if(qtemax>_genotype2.getQuantite(pt11,i))qtemax=_genotype2.getQuantite(pt11,i);
 				if( qtemin<_genotype1.getQuantite(h-1,i))cout<<"pb croisement pt1>-pt11 :qte "<<qtemin<<" "<<h<<" "<<_genotype2.getQuantite(pt11,i)<<" "<<(Vi-Vmin)/3600<<endl;
+				
 				eoUniformGenerator <double> random(qtemin,qtemax);
 				double qte=random();	
 				_genotype1.setQuantite(h,i,qte);
@@ -321,7 +322,6 @@ public:
 		//recherche pt31 et pt32
 		int pt31=pt3+1;
 		int pt32=pt3+1;
-		//cout<<"pt31 "<<pt31<<" pt32 "<<pt32<<endl;
 		trouve1=false;trouve2=false;
 		while (trouve1==false||trouve2==false)
 		{
@@ -384,6 +384,7 @@ public:
 				if(qmin<(Vi-Vmax)/3600)qmin=(Vi-Vmax)/3600;
 				if(qmaxC>0 &&qmax>qte+qmaxC&&qmin<qte+qmaxC) qmax=qte+qmaxC;
 				eoUniformGenerator <double> random(qmin,qmax);
+				
 				 qte=random();
 				//if(qte>_genotype1.getQuantite(pt31,i))qte=_genotype1.getQuantite(pt31,i);
 				_genotype1.setQuantite(h,i,qte);
@@ -431,8 +432,10 @@ public:
 
 				}
 				if(qmin<(Vi-Vmax)/3600)qmin=(Vi-Vmax)/3600;
-				if(qmaxC>0 &&qmax>qte+qmaxC&&qmin<qte+qmaxC) qmax=qte+qmaxC;
+				if(qmaxC>0 &&qmax>qte+qmaxC&&qmin<qte+qmaxC) 
+					qmax=qte+qmaxC;
 				eoUniformGenerator <double> random(qmin,qmax);
+				
 				 qte=random();
 				_genotype2.setQuantite(h,i,qte);
 				_genotype2.setModif(h,true);
@@ -463,7 +466,7 @@ public:
 					}
 				}
 	}
-//cout<<"fin cross"<<endl;
+cout<<"fin cross"<<endl;
     return oneAtLeastIsModified;
 
   }

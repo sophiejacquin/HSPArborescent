@@ -27,7 +27,7 @@ public:
    */
   bool operator()(GenotypeT & _genotype)
   {
-//cout<<"demut2"<<endl;
+cout<<"demut2"<<endl;
       bool isModified(true);
       vector< vector<Sommet> > graphe;
       int i,j,h,hi,hf,r,rSuc;
@@ -489,7 +489,7 @@ public:
 	}
         s=graphe[h-hi][s.pred];
  }
-//cout<<"finmut2"<<endl;
+cout<<"finmut2"<<endl;
  return isModified;
     
 }

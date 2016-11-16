@@ -33,6 +33,7 @@ public:
 
 	void operator()(GenotypeT & _genotype)
 	{
+		cout<<"deb init"<<endl;
 		int i,j,h,t;
 		_genotype.setNbReservoirs(nbReservoirs);
 	  	vector<double> quantite;
@@ -43,6 +44,7 @@ public:
 		 	quantite.push_back(0);
 		  	//calcul de l'interval dans lequel se trouve Vinit:
 		  	double Vinit=R->getVinit();
+			
 		  	double Vi=V[0][i];
 			int nbP=R->getNbParents();
 			for(j=0;j<nbP;j++)
@@ -53,6 +55,7 @@ public:
 		  	//calcul de qmin:
 		  	double qmin=0;
 		  	double qminC=R->getQmin();
+			
 		  	if(qminC<0) qminC=0;
 		  	if(qmin<qminC)qmin=qminC;
 		  	double Vmax=R->getVmax();
@@ -67,8 +70,10 @@ public:
 			{
 				int turbine=R->getTurbine(0);
 				int Int=systeme->getTurbine(turbine)->getIntervalle(Vinit);
+				
 				if(qmaxD>0)  qmaxD=qmaxD+systeme->getTurbine(turbine)->getQMax(Int);
 				else qmaxD=systeme->getTurbine(turbine)->getQMax(Int);
+				
 			}
 		 	if(qmax>qmaxD&&qmaxD>qmin) qmax=qmaxD;
 			if(qmax>qTot[i])qmax=qTot[i];
@@ -78,12 +83,13 @@ public:
 				for(t=1;t<nbHeures-1;t++)
 				{
 					double Vmint=R->getVmin(t)/3600;
-					if(V[t][i]/3600-t*qminC-Vmint<qmax)qmax=V[t][i]/3600-t*qminC-Vmint;
+					if(V[t][i]/3600-t*qminC-Vmint<qmax)
+						qmax=V[t][i]/3600-t*qminC-Vmint;
 				}
 			}
 			eoUniformGenerator<double> random(qmin,qmax);
 			quantite[i]=random();
-	 	}
+	 	};
 		_genotype.adEtat(quantite);
 	 	//Autres états :
 		eoUniformGenerator<double> cb1(0,45);
@@ -92,11 +98,14 @@ public:
 		double b2=95;
 		eoUniformGenerator<double> cb3(b1,b2);
 		double b3=cb3();
+		
 		for(h=1;h<nbHeures-1;h++)
 		{
+			
 			quantite.clear();
 			for(i=0;i<nbReservoirs;i++)
 			{
+				
 				Reservoir* R=systeme->getReservoir(i);
 				quantite.push_back(0);
 				//calcul de l'interval dans lequel se trouve Vinit:
@@ -108,6 +117,7 @@ public:
 				for(j=0;j<nbP;j++)
 				{
 					int parent=R->getParents()[j];
+					
 					Vi=Vi+quantite[parent]*3600;
 					Vinit=Vinit+_genotype.getQuantite(h-1,parent)*3600;
 				}
@@ -119,7 +129,8 @@ public:
 				double Vmax=R->getVmax();
 				if(qmin<(Vi-Vmax)/3600)qmin=(Vi-Vmax)/3600;
 				double qmax=(Vi-Vmin)/3600;
-				if(i==1)
+				
+				if(i==1)/*TODO à revoir*/
 				{
 					double Vh=Vi-(h+1)*qminC*3600;
 					for(j=h+1;j<nbHeures;j++)
@@ -130,6 +141,7 @@ public:
 					}
 
 				}
+				
 				double qmaxD=R->getQmax();
 				if(R->getNbTurbines()>0)
 				{
@@ -137,15 +149,18 @@ public:
 					int Int=systeme->getTurbine(turbine)->getIntervalle(Vinit);
 					qmaxD=systeme->getTurbine(turbine)->getQMax(Int)+qminC;
 				}
+				
 				if(qmax>qmaxD+_genotype.getQuantite(h-1,i)&&qmaxD+_genotype.getQuantite(h-1,i)>=qmin&&qmaxD>0) qmax=qmaxD+_genotype.getQuantite(h-1,i);
 				
 				if(qmax>qTot[i]-qminC*(nbHeures-1-h)&&qTot[i]-qminC*(nbHeures-1-h)>=qmin)qmax=qTot[i]-qminC*(nbHeures-1-h);
+				/*TODO*/
 				else{
 					
 					if(qTot[i]-qminC*(nbHeures-1-h)<qmin &&h<8000){
 						qmax=qmin;
 					}
 				}
+				
 				if(qminC>0&&nbP==0)
 				{
 					for(t=h+1;t<nbHeures-1;t++)
@@ -154,19 +169,30 @@ public:
 						if(V[t][i]/3600-(t-h)*qminC-Vmint<qmax &&V[t][i]/3600-(t-h)*qminC-Vmint>qmin)qmax=V[t][i]/3600-(t-h)*qminC-Vmint;
 					}
 				}
+				
 				if(qmax>qTot[i]) qmax=qTot[i];
+				
 				if(qmax<qmin)
 				{
+					
+					//cout<<"correction "<<i<<" h "<<h<<" qmax="<<qmax<<" qTot="<<qTot[i]<<" (Vi-Vmin)/3600="<<(Vi-Vmin)/3600<<" (Vi-Vmax)/3600="<<(Vi-Vmax)/3600<<" qmin="<<qmin<<endl;//" "<<qminC<<"   "<<V[h-1][i]-(qmax-qminC)*3600<<"   "<<Vmax<<"   "<<_genotype.getQuantite(h-2,i)<<"      "<<qmax-qminC<<endl;
 				//Correction:
 					double Vh=Vinit;
-					if(V[h-1][i]-(qmax-qminC)*3600<Vmax &&_genotype.getQuantite(h-1,i)-qmax+qminC<_genotype.getQuantite(h-1,i)-_genotype.getQuantite(h-2,i))
+					//if(V[h-1][i]-(qmax-qminC)*3600<Vmax && qmax-qminC>=_genotype.getQuantite(h-2,i))
+					int htemp=h;
+					while(htemp>0 && _genotype.getQuantite(htemp-1,i)>qmax)
 					{
-						_genotype.setQuantite(h-1,i,qmax-qminC);
+						//cout<<"correction "<<_genotype.getQuantite(htemp-1,i)<<" "<<qmax<<" htemp-1 "<<htemp-1<<" i="<<i<<endl;
+						_genotype.setQuantite(htemp-1,i,qmax);
+						htemp--;
 					}
 					
 				}
+				//cout<<"init vmax borne "<<(Vi-Vmax)/3600<<endl;
+				
 				
 				  if(qmax<qmin)qmin=qmax;
+				  if(qmax<(Vi-Vmax)/3600|| qmin<(Vi-Vmax)/3600) cout<<"*****************PROBLEME****"<<endl;
 				  //choix aléatoire
 				  eoUniformGenerator<double> random(qmin,qmax);
 			          eoUniformGenerator<double> rim(0,100);
@@ -174,20 +200,25 @@ public:
 				  quantite[i]=random();
 				  if(p<b1) quantite[i]=qmin;
 			          if(p>b2)quantite[i]=qmax;
+				  if((Vi-Vmax)/3600>quantite[i]) cout<<"mystere"<<endl;
 			  }
 			  _genotype.adEtat(quantite);
 	  	}
 	  	//DernierEtat:
+		
 	  	_genotype.adEtat(qTot);
 
 		for(i=0;i<nbReservoirs;i++)
 		{
 			for(h=1;h<nbHeures;h++)
 			{
-				if(_genotype.getQuantite(h,i)<_genotype.getQuantite(h-1,i))cout<<"pb grave "<<h<<" "<<i<<endl;
+				if(_genotype.getQuantite(h,i)<_genotype.getQuantite(h-1,i))cout<<"*************************pb grave "<<h<<" "<<i<<"   "<<_genotype.getQuantite(h,i)-_genotype.getQuantite(h-1,i)<<endl;
 			}
 		}
-		_genotype.invalidate();	  
+		_genotype.invalidate();
+			
+		_genotype.check_Vmax(V,systeme);  
+		cout<<"fin init"<<endl;
 	}
 
 private:

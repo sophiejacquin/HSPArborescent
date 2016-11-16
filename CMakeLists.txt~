@@ -40,6 +40,7 @@ ADD_DEFINITIONS(-O0 -DIL_STD -m64 -O -fPIC -fno-strict-aliasing -fexceptions -DN
 ######################################################################################
 
 ADD_EXECUTABLE(cascadeEA cascadeEA.cpp)
+ADD_EXECUTABLE(realisable realisable.cpp)
 ######################################################################################
 
 

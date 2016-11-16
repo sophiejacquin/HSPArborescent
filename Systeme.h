@@ -13,32 +13,43 @@ class Systeme
 	int nbTurbines;
 	vector<Reservoir*> reservoirs;
 	vector<Turbine> turbines;
-	double* prix[4];
+	vector<double*> prix;
 	int nbPrix;
+	int nbH;
 	public :
 	//Constructeur:
+	Systeme()
+	{
+		nbReservoirs=0;
+		nbTurbines=0;
+		nbPrix=0;
+	}
 	Systeme(char* titre1,char* titre2,char*titre3 )
 	{	
 		//Déclarations
-		int i,j,k,nbH;
+		int i,j,k;
 		//Ouverture fichier
+		cout<<"là"<<endl;
 		ifstream fichier(titre1, ios::in);
 		if(fichier){
+			cout<<"si fichier"<<endl;
 		//création des prix
 		
 			fichier>>nbPrix;//spot OAcroissants
 			fichier>>nbH;
+			cout<<"nbH="<<nbH<<endl;
 			for(i=0;i<nbPrix;i++)
 			{
-				prix[i]=new double[nbH];
+				double* prixN=new double[nbH];
 				for(j=0;j<nbH;j++)
 				{
-					fichier>>prix[i][j];
-				}	
+					fichier>>prixN[j];
+				}
+				prix.push_back(prixN);	
 			}
 			fichier.close();
 		}
-		//cout<<"prix créés"<<endl;
+		cout<<"prix créés"<<endl;
 		ifstream fichier2(titre2,ios::in);	
 		//création des turbines
 		if(fichier2){
@@ -101,13 +112,14 @@ class Systeme
 			}
 			fichier2.close();
 		}
-		//cout<<"turbines créées"<<endl;
+		cout<<"turbines créées"<<endl;
 		//création des réservoirs
 		ifstream fichier3(titre3,ios::in);
 		if(fichier3)
 		{
 			fichier3>>nbReservoirs;
 			fichier3>>nbH;
+			cout<<nbH<<endl;
 			//Vinit Vmax Vmin
 			for(i=0;i<nbReservoirs;i++)
 			{
@@ -156,10 +168,11 @@ class Systeme
 				}
 				//cout<<"là"<<endl;
 				//CRÉATION DES Reservoirs :
+				
 				Reservoir *r = new Reservoir(Vinit,Vmax,nbIntVmin,intVmin, Vmin,apports,deversement-1, distance,nbT, listeT,qmin,qmax,nbParents, parents);
 				//cout<<"dgf"<<endl;
 				reservoirs.push_back(r);
-				//cout<<"reservoirs créé"<<endl;
+				cout<<"reservoirs créé"<<endl;
 				delete[] parents;
 				delete[] listeT;
 				delete[] Vmin;
@@ -170,8 +183,53 @@ class Systeme
 			fichier3.close();
 		}
 		//cout<<"réservoirs créés"<<endl;
+		cout<<nbH<<endl;
+	}
+	void afficher()const
+	{
+		for(unsigned int i=0; i< nbReservoirs; i++)
+		{
+			cout<< "successeurs du réservoir "<<i<<":";
+				cout<<reservoirs[i]->getDeversement()<<endl;
+		
+		}
+		cout << " turbines:"<<endl;
+		for(unsigned int i=0; i< nbTurbines; i++)
+		{
+			cout<<"Intervalles :"<<endl;
+			cout<< "premier prix "<<i<<":";
+				cout<<turbines[i].getPrix(0)<<endl;
+		
+		}
+		
 	}
 	//Acsesseurs:
+	void adReservoir(Reservoir* R)
+	{
+		reservoirs.push_back(R);
+		nbReservoirs++;
+	}
+	void adTurbine(Turbine & T)
+	{
+		turbines.push_back(T);
+		nbTurbines++;
+	}
+	double* getPrix(int cat)
+	{
+		return prix[cat];
+	}
+	int getNbPrix()
+	{
+		return nbPrix;
+	}
+	void setNbHeures(int n)
+	{
+		nbH=n;
+	}
+	int getNbHeures()
+	{
+		return nbH;
+	}
 	int getNbReservoirs()const
 	{
 		return nbReservoirs;
@@ -188,6 +246,56 @@ class Systeme
 	{
 		return &(turbines[i]);
 	}
+	void adPrix(double* _prix)
+	{
+		prix.push_back(_prix);
+		nbPrix++;
+	}
+	bool operator ==(Systeme* s2)
+	{
+		if(s2->getNbHeures()== nbH)
+		{
+		}
+		else
+		{
+			cout<<" different nombre d'heures "<<nbH <<" v s "<<s2->getNbHeures()<<endl;
+			return false;
+		}
+		if(s2->getNbTurbines()==nbTurbines)
+		{
+			for(int i=0;i<nbTurbines;i++)
+			{
+				if (not(turbines[i]==s2->getTurbine(i)))
+				{
+					cout<<"les turbines numeros "<<i<<" ne sont pas identiques"<<endl;
+					return false;
+				}
+			}
+		}
+		else
+		{
+			cout<<" different nombre de turbines "<<nbTurbines<<" v s "<<s2->getNbTurbines()<<endl;
+			return false;
+		}
+		
+		if(s2->getNbReservoirs()== nbReservoirs)
+		{
+			for(int i=0;i<nbReservoirs;i++)
+			{
+				if (not(*reservoirs[i]==s2->getReservoir(i)))
+				{
+					cout<<"les reservoirs numéro "<<i<<" ne sont pas identiques"<<endl;
+					return false;
+				}
+			}
+		}
+		else
+		{
+			cout<<" different nombre de Reservoirs "<<nbReservoirs<<" v s "<<s2->getNbReservoirs()<<endl;
+			return false;
+		}
+		return true;
+	} 
 	
 };
 #endif

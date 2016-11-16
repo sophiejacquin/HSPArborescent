@@ -19,7 +19,7 @@ public:
 
   bool operator()(GenotypeT & _genotype)
   {
-//cout<<"deb mut"<<endl;
+cout<<"deb mut"<<endl;
       bool isModified(true);
       int i,j;
       int nbHeures=_genotype.getNbEtats();
@@ -29,9 +29,11 @@ public:
       int etat=choixEtat();
       for(i=0;i<nbReservoirs;i++)
       {
+	  cout<<"mut i="<<i<<endl;
 	  double ex=exacte();
 	  Reservoir* R = systeme->getReservoir(i);
     	  double Vmin= R->getVmin(etat);
+	  cout<<"mut Vmin="<<Vmin<<endl;
     	  double Vmax= R->getVmax();
     	  double qmin,qmax;
     	  //calcul qmin:
@@ -47,12 +49,13 @@ public:
 	  if(ex<0.99 &&qminC>0&&(Vi-Vmin)/3600>=qmin+qminC)qmin=qmin+qminC;//chercher à ne pas faire à tout les coups?
     	  if((Vi-Vmax)/3600>qmin)qmin=(Vi-Vmax)/3600;
 	  int Rdeversement=R->getDeversement();
+	  cout<<"DEVERSEMENT "<<Rdeversement<<endl;
 	  if(Rdeversement>0)
 	  {
 	  	double Vsuc= V[etat][Rdeversement] -_genotype.getQuantite(etat,Rdeversement)*3600;
 	  	if(qmin<systeme->getReservoir(Rdeversement)->getVmin(etat)-Vsuc)
 			qmin=systeme->getReservoir(Rdeversement)->getVmin(etat)-Vsuc;
-	}	
+	  }	
     	  //calcul de qmax :
     	  qmax=_genotype.getQuantite(etat+1,i);
     	  double qmaxC=R->getQmax();
@@ -78,6 +81,7 @@ public:
     		  if(ex<0.9&&etat>0&&qmax>qmaxC+_genotype.getQuantite(etat-1,i))qmax=qmaxC+_genotype.getQuantite(etat-1,i);
 		if(etat==0 &&qmax>qmaxC) qmax=qmaxC;
     	  }
+	  cout<<"mut ap if"<<endl;
     	  if((Vi-Vmin)/3600<qmax) qmax=(Vi-Vmin)/3600;
 	  if(ex<0.8&&qmax>_genotype.getQuantite(etat+1,i)-qminC&&_genotype.getQuantite(etat+1,i)-qminC>=qmin)qmax=_genotype.getQuantite(etat+1,i)-qminC;//chercher à ne pas faire à tout les coups?
 	if(Rdeversement>0)
@@ -98,7 +102,7 @@ public:
 	   _genotype.setModif(etat+1,true);
     	
       }
-//cout<<"fin mut"<<endl;
+cout<<"fin mut"<<endl;
       return isModified;
   
   }

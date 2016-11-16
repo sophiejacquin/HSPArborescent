@@ -63,6 +63,7 @@ void details(EOT & _eo)
 		
 					double ri;
 					double Vi;
+					/*TODO revoir def*/
 					if(h==0) {
 						Vi=systeme->getReservoir(i)->getVinit();
 						ri=_eo.getQuantite(h,i)*3600;
@@ -149,11 +150,13 @@ void details(EOT & _eo)
 
 	for(h=0;h<_eo.getNbEtats();h++)
 	{
+		
 		if(_eo.getModif(h))
 		{
 			double profit=0;
 			for(i=0;i<_eo.getNbReservoirs();i++)
 			{
+				
 				//calcul quantite :
 				double qte;
 				if(h==0)
@@ -165,8 +168,9 @@ void details(EOT & _eo)
 				//qminC:
 				double qminC=systeme->getReservoir(i)->getQmin();
 				if(qminC<0)qminC=0;
-				//if(h>0)cout<<i<<" "<<qte<<" "<<qminC<<" "<<_eo.getQuantite(h,i)<<" "<<_eo.getQuantite(h-1,i)<<endl;
+				
 				if(qte<qminC){
+				
 					if(qminC-qte>0.00001)
 					{
 						  profit= profit- P1*(qminC-qte);
@@ -176,18 +180,14 @@ void details(EOT & _eo)
 				
 				else
 				{
-					//calcul qteT:
-					//cout<<"dans else "<<i<<endl;
+					
 					double qteT=0;
 					double Vi;
 					int turbine=systeme->getReservoir(i)->getTurbine(0);
+					
 					if(systeme->getReservoir(i)->getNbTurbines()>0)
 					{
-						//cout<<"il y a une turbine"<<endl;
 						
-					       // cout<<i<<": "<<turbine<<endl;
-						//calcul qmaxT et qminT:
-						//calcul de Vi:
 						
 						if(h==0) Vi=systeme->getReservoir(i)->getVinit();
 						else
@@ -200,16 +200,19 @@ void details(EOT & _eo)
 							}
 									
 						}
-						//cout<<"Vi "<<Vi<<endl;
+						
 						int Int=systeme->getTurbine(turbine)->getIntervalle(Vi);
 						double qmaxT=systeme->getTurbine(turbine)->getQMax(Int);
 						double qminT=systeme->getTurbine(turbine)->getQmin(Vi);
+						
 						//calcul qteT :
 						qteT=qte-qminC;
 						if(qteT>qmaxT)qteT=qmaxT;
 						if(qteT<qminT-0.000001)qteT=0;
 						//calcl profit:
+						
 						profit=profit+systeme->getTurbine(turbine)->getBenefice(Vi,qteT,h);
+						
 						
 					}
 					double qmaxC=systeme->getReservoir(i)->getQmax();

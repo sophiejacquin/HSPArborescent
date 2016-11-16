@@ -127,6 +127,19 @@ realisable/fast:
 	$(MAKE) -f CMakeFiles/realisable.dir/build.make CMakeFiles/realisable.dir/build
 .PHONY : realisable/fast
 
+#=============================================================================
+# Target rules for targets named testRead
+
+# Build rule for target.
+testRead: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testRead
+.PHONY : testRead
+
+# fast build rule for target.
+testRead/fast:
+	$(MAKE) -f CMakeFiles/testRead.dir/build.make CMakeFiles/testRead.dir/build
+.PHONY : testRead/fast
+
 # target to build an object file
 cascadeEA.o:
 	$(MAKE) -f CMakeFiles/cascadeEA.dir/build.make CMakeFiles/cascadeEA.dir/cascadeEA.o
@@ -157,6 +170,21 @@ realisable.s:
 	$(MAKE) -f CMakeFiles/realisable.dir/build.make CMakeFiles/realisable.dir/realisable.s
 .PHONY : realisable.s
 
+# target to build an object file
+testRead.o:
+	$(MAKE) -f CMakeFiles/testRead.dir/build.make CMakeFiles/testRead.dir/testRead.o
+.PHONY : testRead.o
+
+# target to preprocess a source file
+testRead.i:
+	$(MAKE) -f CMakeFiles/testRead.dir/build.make CMakeFiles/testRead.dir/testRead.i
+.PHONY : testRead.i
+
+# target to generate assembly for a file
+testRead.s:
+	$(MAKE) -f CMakeFiles/testRead.dir/build.make CMakeFiles/testRead.dir/testRead.s
+.PHONY : testRead.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -167,12 +195,16 @@ help:
 	@echo "... edit_cache"
 	@echo "... realisable"
 	@echo "... rebuild_cache"
+	@echo "... testRead"
 	@echo "... cascadeEA.o"
 	@echo "... cascadeEA.i"
 	@echo "... cascadeEA.s"
 	@echo "... realisable.o"
 	@echo "... realisable.i"
 	@echo "... realisable.s"
+	@echo "... testRead.o"
+	@echo "... testRead.i"
+	@echo "... testRead.s"
 .PHONY : help
 
 

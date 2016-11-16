@@ -15,6 +15,7 @@ using namespace std;
 #include "eocascadeMutation.h"
 #include "eocascadeMutation2.h"
 #include "eocascadeStat.h"
+#include "readData.h"
 
 typedef double MyFitT ;	
 typedef eocascade<MyFitT> Indi;     
@@ -76,7 +77,10 @@ try
 	std::string donneR = parser.createParam(std::string("./donneReservoirs3"), "donneReservoirs", "donne pour reservoirs", 'C', "My application").value();
 	char InputR[600];
 	strcpy(InputR,donneR.c_str());
-        Systeme systeme(Input,InputTurb,InputR);
+        readData reader(string("./Cas_2_bis/"),1,NBHEURES,1);
+        reader.readAllFiles();
+        Systeme systeme =reader.getSysteme();
+        //Systeme systeme(Input,InputTurb,InputR);
         std::string sortie = parser.createParam(std::string("exit.csv"), "sortie", "sortie résultats", 'x', "My application").value();
         char sortieChar[600];
         strcpy(sortieChar, sortie.c_str());
@@ -205,6 +209,7 @@ double mut4Rate = parser.createParam(1.0, "mut4Rate", "Relative rate for mutatio
 #endif
 
   // algorithm (need the operator!)
+        systeme.afficher();
 	eoAlgo<Indi>& ga = make_algo_scalar(parser, state, eval, checkpoint, op);
 	make_help(parser);
 	cout<<"go"<<endl;
@@ -232,6 +237,7 @@ double mut4Rate = parser.createParam(1.0, "mut4Rate", "Relative rate for mutatio
         }
         else
             pop.best_element().printOn(cout);
+        systeme.afficher();
   }
   catch(exception& e)
   {
