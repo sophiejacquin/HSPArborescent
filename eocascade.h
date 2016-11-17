@@ -79,6 +79,9 @@ virtual ~eocascade()
 virtual string className() const { return "eocascade"; }
 void printOn(ostream& os) const
 {
+}
+void printOn(ostream& os, Systeme * s) const
+{
 	
 	os << "time ;";
 	for (int i=0;i<nbReservoirs;i++)
@@ -92,6 +95,9 @@ void printOn(ostream& os) const
 	for(int i=0; i<q[0].size(); i++)
 	{
 		os<<"T_"<<i<<";";
+		os<<"Price_"<<i<<";";
+		os<<"Puissance_"<<i<<";";
+		
 		
 	}
 	os<<endl;
@@ -113,7 +119,13 @@ void printOn(ostream& os) const
 		for(int j=0;j<q[i].size();j++)
 		{
 			
-			if (i<nbEtats) os<<q[i][j]<<";";
+			if (i<nbEtats)
+			{
+				 os<<q[i][j]<<";";
+				os<<s->getTurbine(j)->getPrix(i)<<";";
+				os<<s->getTurbine(j)->getBenefice(V[i][s->getTurbine(j)->getReservoirParent()],q[i][j],i)/s->getTurbine(j)->getPrix(i)<<";";
+			}
+			
 
 		}
 		os<<endl;

@@ -233,7 +233,7 @@ double mut4Rate = parser.createParam(1.0, "mut4Rate", "Relative rate for mutatio
         std::ofstream fichierSortie (sortieChar, ios::out | ios::trunc);
         if(fichierSortie)
         {
-            pop.best_element().printOn(fichierSortie);
+            pop.best_element().printOn(fichierSortie,&systeme);
         }
         else
             pop.best_element().printOn(cout);
