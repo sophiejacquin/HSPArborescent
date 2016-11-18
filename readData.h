@@ -20,7 +20,7 @@ class readData{
 
 
 	public:
-	readData(string _directory, int _apportTest,int nb,int _coefProd=1000)
+	readData(string _directory, int _apportTest,int nb,int _coefProd=1)
 	{
 	        directory = _directory;
 	        apportTest = _apportTest;
@@ -90,9 +90,8 @@ class readData{
          
         	for (std::vector<std::string>::iterator it = data.begin(); it != data.end(); it = it + 14)
         	{
-			//cout<<"deb boucle"<<endl;
+			
 			double Vinit=  atof((*(it+1)).c_str());
-			//cout<<"'"<<*it<<"'"<<endl;
             		int nbIntVmin = atoi((*(it+3)).c_str());
             		double Vmax;
             		string Vmax_s = *(it+2);
@@ -248,7 +247,6 @@ class readData{
             {
                 if (nbInt>1)
                 {
-                   // cout<<"atof((*(it+j+1)).c_str());="<<atof((*(it+j+1)).c_str())<< " " << j << endl;;
                     intReservoirs[j] = atof((*(it+j+1)).c_str());
                 }
                 else
@@ -272,7 +270,7 @@ class readData{
                 for (int j=0; j<nbInt; j++)
                 {
 		    
-                   if(t==0 && j==0)cout<<*(it+j+1)<<endl;
+                  ;
                     string tmp_s = *(it+j+1);
 			
                     production[i][j] = atof(tmp_s.c_str())*coefProd;
@@ -296,7 +294,7 @@ class readData{
                         else if(i>1) coeff[i-1][j] = (production[i][j]-production[i-1][j]) / (pieces[i-1]-pieces[i-2]);
 			 
 			else coeff[i-1][j] = (production[i][j]-production[i-1][j]) / (pieces[i-1]);
-                    if(t==0 && i==16 && j==15)cout<<production[i][j]<<"   "<<production[i-1][j]<<" coeff="<<coeff[i-1][j]<<" pieces[i]="<<pieces[i-1]<<" pieces[i-1="<<pieces[i-2]<<" qmax="<<qmax[j]<<endl;
+                    
                 }
             }
 	  

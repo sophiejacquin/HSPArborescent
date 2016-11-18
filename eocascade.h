@@ -86,15 +86,15 @@ void printOn(ostream& os, Systeme * s) const
 	os << "time ;";
 	for (int i=0;i<nbReservoirs;i++)
 	{
-		os<<"V_"<<i<<";";
+		os<<"V_"<<i+1<<";";
 	}
 	for (int i=0;i<nbReservoirs;i++)
 	{
-		os<<"r_"<<i<<";";
+		os<<"r_"<<i+1<<";";
 	}
 	for(int i=0; i<q[0].size(); i++)
 	{
-		os<<"T_"<<i<<";";
+		os<<"T_"<<i+1<<";";
 		os<<"Price_"<<i<<";";
 		os<<"Puissance_"<<i<<";";
 		

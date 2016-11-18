@@ -6,7 +6,7 @@ COMPLILATION :
 	compilation
 		make
 Execution :
-	.\cascadeEA *paramètres*
+	.\cascadeEA -P401 -w1 -G50000
 Paramètres :
 
 --help=0                                 # -h : Prints this message
@@ -16,9 +16,8 @@ Paramètres :
 # --replacement=Comma                      # -R : Replacement: Comma, Plus or EPTour(T), SSGAWorst, SSGADet(T), SSGAStoch(t) (irace : Plus)
 # --weakElitism=0                          # -w : Old best parent replaces new worst offspring *if necessary*
 # --nbHeures=8750                          # -N : nombre d'heures dans la plannification
-# --donnePrix=./donnePrix                  # -A : donne pour prix
-# --donneTurbines=./donneTurbines          # -B : donne pour turbines
-# --donneReservoirs=./donneReservoirs3     # -C : donne pour reservoirs
+# --donnees		                 # -A : Dossier contenant les données
+# 
 
 
 # --maxGen=100                             # -G : Maximum number of generations () = none) 
@@ -42,4 +41,18 @@ Paramètres :
 		
 Données :
 
-	
+	les dossier de données doit contenir:
+		-Un dossier "Reservoir" avec :
+			-un fichier "reservoirs.csv" :
+				les réservoirs doivent être donné d'amont en aval
+				les volumes sont donnés en m^3
+				les débits en m^3/s
+		-Un dossier "Turbine" avec :
+			-un fichier "turbines.csv"
+			-Pour chaque turbine un fichier "Turb_num_.csv" qui décrit la fonction de production associée à la turbine
+		-Un dossier "Prix"
+			-un fichier "dataPrix.csv" qui donne les noms de chaque catégories de prix et les nombres de scenarios décrits
+			-les fichiers décrivant les prix pour chaque catégorie de prix
+		-Un dossier "Apport"
+			-un fichier décrivant les apports
+		

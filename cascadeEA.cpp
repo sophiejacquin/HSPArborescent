@@ -68,19 +68,14 @@ try
 	eoParser parser(argc, argv);  
 	eoState state;    
 	int  NBHEURES =parser.createParam(8760,"nbHeures", "nombre d'heures dans la plannification",'N', "My application").value();
-	std::string donnePrix = parser.createParam(std::string("./donnePrix"), "donnePrix", "donne pour prix", 'A', "My application").value();
+        std::string donnees = parser.createParam(std::string("./Cas_2_bis/"), "donnees", "donnees", 'A', "My application").value();
 	char Input[600];
-	strcpy(Input,donnePrix.c_str());
-	std::string donneT = parser.createParam(std::string("./donneTurbines"), "donneTurbines", "donne pour turbines", 'B', "My application").value();
-	char InputTurb[600];
-	strcpy(InputTurb,donneT.c_str());
-	std::string donneR = parser.createParam(std::string("./donneReservoirs3"), "donneReservoirs", "donne pour reservoirs", 'C', "My application").value();
-	char InputR[600];
-	strcpy(InputR,donneR.c_str());
-        readData reader(string("./Cas_2_bis/"),1,NBHEURES,1);
+        strcpy(Input,donnees.c_str());
+
+        readData reader(Input,1,NBHEURES,1);
         reader.readAllFiles();
         Systeme systeme =reader.getSysteme();
-        //Systeme systeme(Input,InputTurb,InputR);
+
         std::string sortie = parser.createParam(std::string("exit.csv"), "sortie", "sortie résultats", 'x', "My application").value();
         char sortieChar[600];
         strcpy(sortieChar, sortie.c_str());
@@ -116,23 +111,8 @@ try
 	 mut.add(mut2, mut2Rate);
 	vector<double> delta;
 	vector<double> pas;
-/*delta.push_back(0.5);
-pas.push_back(1);
-delta.push_back(0.5);
-pas.push_back(1);
-delta.push_back(0);
-pas.push_back(2);
-delta.push_back(0);
-pas.push_back(1);
-delta.push_back(0.5);
-pas.push_back(1);
-delta.push_back(1.5);
-pas.push_back(3);
-delta.push_back(1.5);
-pas.push_back(3);
- eocascadeMutation3<Indi> mut4(V,&systeme,3,100);//100,delta,pas);//(eoParser parser);
-double mut4Rate = parser.createParam(1.0, "mut4Rate", "Relative rate for mutation 2", '4', "Variation Operators").value();
- mut.add(mut4, mut4Rate);*/
+
+
 
 	double pCross = parser.createParam(0.718, "pCross", "Probability of Crossover", 'C', "Variation Operators" ).value();
 

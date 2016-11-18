@@ -130,7 +130,7 @@ public:
 				if(qmin<(Vi-Vmax)/3600)qmin=(Vi-Vmax)/3600;
 				double qmax=(Vi-Vmin)/3600;
 				
-				if(i==1)/*TODO à revoir*/
+				if(nbP==0 &&qminC>0)
 				{
 					double Vh=Vi-(h+1)*qminC*3600;
 					for(j=h+1;j<nbHeures;j++)
